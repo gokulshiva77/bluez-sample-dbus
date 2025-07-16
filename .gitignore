@@ -39,3 +39,53 @@
 
 # debug information files
 *.dwo
+
+# Build directories
+build/
+cmake-build-*/
+
+# Generated documentation
+docs/
+html/
+latex/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+install_manifest.txt
+compile_commands.json
+
+# Doxygen output
+Doxyfile.bak
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*.backup
+*.tmp
+
+# Log files
+*.log
+
+# Core dumps
+core.*
+
+# Generated files from XML
+Generated/
+*-proxy-generated.hpp
+*-adapter-generated.hpp
+
+# Application executables
+BluezEg
