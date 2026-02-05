@@ -59,7 +59,7 @@ std::map<const std::string, const std::function<void(DeviceProperties& propertie
 };
 
 DeviceProxy::DeviceProxy(sdbus::IConnection &connection,IDevice &device, std::string devicePath):
-ProxyInterfaces(connection, DEVICE_WELLKNOWN_NAME, devicePath),
+ProxyInterfaces(connection, sdbus::ServiceName(DEVICE_WELLKNOWN_NAME), sdbus::ObjectPath(devicePath)),
 m_devicePath(devicePath),
 m_connection(connection),
 m_device(device)
@@ -219,9 +219,9 @@ DeviceProperties DeviceProxy::GetProperties()
   return properties;
 }
 
-void DeviceProxy::onPropertiesChanged(const std::string& interface_name, 
-    const std::map<std::string, sdbus::Variant>& changed_properties, 
-    const std::vector<std::string>& invalidated_properties)
+ void DeviceProxy::onPropertiesChanged( const sdbus::InterfaceName& interface_name,
+                            const  std::map<sdbus::PropertyName, sdbus::Variant>& changed_properties, 
+                            const std::vector<sdbus::PropertyName>& invalidated_properties )
 {
   for (const auto &prop : changed_properties) {
     Log("%s%s Name - %s", TAG, __func__, LOG_STRING(prop.first));

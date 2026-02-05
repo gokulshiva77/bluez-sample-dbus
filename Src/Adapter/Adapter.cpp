@@ -98,6 +98,11 @@ void Adapter::StartScan()
   m_adapterProxy.StartDiscovery();
 }
 
+void Adapter::StopScan()
+{
+  StopDiscovery();
+}
+
 void Adapter::StartDiscovery()
 {
   Log("%s%s", TAG,__func__);
@@ -121,10 +126,6 @@ void Adapter::StopDiscovery()
   }
   if(m_adapterProxy.GetPairable()) {
     m_adapterProxy.SetPairable(false);
-  }
-  
-  if(m_adapterProxy.GetPowered()) {
-    m_adapterProxy.SetPowered(false);
   }
 }
 

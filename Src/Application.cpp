@@ -54,7 +54,7 @@ void Application::StartApplication()
     { "Role", sdbus::Variant("client") },
     { "PSM", sdbus::Variant(uint16_t(0x0003)) } };  
 
-  m_profileManager->RegisterProfile(SPP_PATH, SPP_UUID, options);
+  m_profileManager->RegisterProfile(sdbus::ObjectPath(SPP_PATH), SPP_UUID, options);
 
   // Start the event loop asynchronously in a separate thread
   m_eventLoopThread = std::thread(&Application::runEventLoopAsync, this, std::ref(m_connection));
@@ -71,7 +71,17 @@ void Application::StartDiscovery()
   m_adapter->StartDiscovery();
 }
 
+void Application::StopDiscovery()
+{
+  m_adapter->StopDiscovery();
+}
+
 void Application::StartScan()
 {
   m_adapter->StartScan();
+}
+
+void Application::StopScan()
+{
+  m_adapter->StopScan();
 }

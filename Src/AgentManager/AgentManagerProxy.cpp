@@ -9,7 +9,7 @@ std::string AGENT_MANAGER_INTERFACE_OBJECT_PATH = "/org/bluez";
 
 AgentManagerProxy::AgentManagerProxy(sdbus::IConnection &connection):
 m_connection(connection),
-ProxyInterfaces(connection, AGENT_MANAGER_WELLKNOWN_NAME, AGENT_MANAGER_INTERFACE_OBJECT_PATH)
+ProxyInterfaces(connection, sdbus::ServiceName(AGENT_MANAGER_WELLKNOWN_NAME), sdbus::ObjectPath(AGENT_MANAGER_INTERFACE_OBJECT_PATH))
 {
   Log("%s%s", TAG,__func__);
   registerProxy();

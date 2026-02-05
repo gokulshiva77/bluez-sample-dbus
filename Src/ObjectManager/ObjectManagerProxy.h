@@ -23,8 +23,10 @@
  * @brief Structure for queuing interface addition events
  */
 typedef struct {
-  sdbus::ObjectPath path;                                                      ///< D-Bus object path
-  std::map<std::string, std::map<std::string, sdbus::Variant>> interfacesAndProperties; ///< Interface properties
+  sdbus::ObjectPath path;
+  std::map<sdbus::InterfaceName, ///< D-Bus object path
+  std::map<sdbus::PropertyName,  ///< Property Name
+  sdbus::Variant>> interfacesAndProperties;  ///< Interfaces and Properties Value
 }InterfaceAddedStruct;
 
 /**
@@ -33,7 +35,7 @@ typedef struct {
  */
 typedef struct {
   sdbus::ObjectPath path;           ///< D-Bus object path
-  std::vector<std::string> interfaces; ///< List of removed interfaces
+  std::vector<sdbus::InterfaceName> interfaces; ///< List of removed interfaces
 }InterfaceRemovedStruct;
 
 /**
@@ -77,8 +79,8 @@ public:
    * Called when new D-Bus objects are added to BlueZ. Filters for Device1
    * interfaces and queues them for processing.
    */
-  void onInterfacesAdded( const sdbus::ObjectPath& objectPath
-    , const std::map<std::string, std::map<std::string, sdbus::Variant>>& interfacesAndProperties) override;
+  void onInterfacesAdded( const sdbus::ObjectPath& objectPath,
+      const std::map<sdbus::InterfaceName,  std::map<sdbus::PropertyName, sdbus::Variant>>& interfacesAndProperties) override;
     
   /**
    * @brief Handle D-Bus InterfacesRemoved signal
@@ -88,9 +90,7 @@ public:
    * Called when D-Bus objects are removed from BlueZ. Filters for Device1
    * interfaces and queues them for processing.
    */
-  void onInterfacesRemoved( const sdbus::ObjectPath& objectPath
-      , const std::vector<std::string>& interfaces) override;
-
+    void onInterfacesRemoved( const sdbus::ObjectPath& objectPath,const std::vector<sdbus::InterfaceName>& interfaces) override;
 private:
   /**
    * @brief Main event loop function executed in separate thread
@@ -105,7 +105,7 @@ private:
    * @param interfaces Map of interface properties
    * @return Device class value (24-bit)
    */
-  uint32_t GetClass(std::map<std::string, sdbus::Variant> interfaces);
+  uint32_t GetClass(std::map<sdbus::PropertyName, sdbus::Variant> interfaces);
   
   /**
    * @brief Validate if device class is acceptable
@@ -119,7 +119,7 @@ private:
    * @param interfaces Map of interface properties
    * @return True if device should be processed, false otherwise
    */
-  bool GetAndValidateClass(std::map<std::string, sdbus::Variant> interfaces);
+  bool GetAndValidateClass(std::map<sdbus::PropertyName, sdbus::Variant> interfaces);
 
 private:
     sdbus::IConnection& m_connection;                          ///< Reference to D-Bus connection

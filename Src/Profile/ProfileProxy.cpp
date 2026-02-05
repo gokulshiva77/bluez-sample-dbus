@@ -6,7 +6,7 @@
 
 
 ProfileProxy::ProfileProxy(sdbus::IConnection &connection, std::string profilePath):
-AdaptorInterfaces(connection, profilePath),
+AdaptorInterfaces(connection, sdbus::ObjectPath(profilePath)),
 m_connection(connection),
 m_profilePath(profilePath),
 m_spp(nullptr)

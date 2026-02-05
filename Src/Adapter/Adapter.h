@@ -115,6 +115,7 @@ public:
    * Powers on the adapter and begins active scanning for discoverable devices.
    */
   void StartScan();
+  void StopScan();
   
   /**
    * @brief Start discovery mode (make this device discoverable)

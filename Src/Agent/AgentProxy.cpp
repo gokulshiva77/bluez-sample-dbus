@@ -7,7 +7,7 @@
 AgentProxy::AgentProxy(sdbus::IConnection &connection, std::string path, IAgent &agent):
 m_connection(connection),
 m_agent(agent),
-AdaptorInterfaces(connection, path)
+AdaptorInterfaces(connection, sdbus::ObjectPath(path))
 {
   Log("%s%s", TAG,__func__);
   try
