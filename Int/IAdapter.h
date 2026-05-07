@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 #include <cstdint>
-#include <cstdbool>
+
 
 /**
  * @class IAdapter

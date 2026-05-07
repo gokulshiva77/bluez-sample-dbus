@@ -35,10 +35,10 @@ This application provides a complete Bluetooth stack implementation using BlueZ'
 
 ```bash
 # Ubuntu/Debian
-sudo apt-get install libsdbus-c++-dev libsdbus-c++-bin libboost-dev bluez cmake build-essential
+sudo apt-get install libsdbus-c++-dev libsdbus-c++-bin libboost-dev bluez cmake build-essential pkg-config
 
 # Fedora/CentOS
-sudo dnf install sdbus-c++-devel boost-devel bluez cmake gcc-c++
+sudo dnf install sdbus-c++-devel boost-devel bluez cmake gcc-c++ pkgconf-pkg-config
 ```
 
 ### Bluetooth Adapter Configuration
