@@ -211,9 +211,9 @@ private:
      * @param changed_properties Map of changed properties and their new values
      * @param invalidated_properties List of properties that became invalid
      */
-    void onPropertiesChanged(const std::string& interface_name, 
-        const std::map<std::string, sdbus::Variant>& changed_properties, 
-        const std::vector<std::string>& invalidated_properties) override;
+    void onPropertiesChanged( const sdbus::InterfaceName& interfaceName,
+                            const  std::map<sdbus::PropertyName, sdbus::Variant>& changedProperties, 
+                            const std::vector<sdbus::PropertyName>& invalidatedProperties ) override;
     
     /**
      * @brief Execute a bash command and return exit code

@@ -57,4 +57,5 @@ private:
   AgentManagerProxy m_agentManagerProxy; ///< Proxy for D-Bus communication
   std::atomic<bool> m_running;           ///< Flag to control event loop execution
   std::thread m_eventLoopThread;         ///< Thread for running the event loop
+  std::string m_capability;
 };

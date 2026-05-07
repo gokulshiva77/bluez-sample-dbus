@@ -45,7 +45,7 @@ AdapterProxy::AdapterProxy(sdbus::IConnection& connection, IAdapter& adapter, st
 m_connection(connection),
 m_adapter(adapter),
 m_hciDevice(hciDevice),
-ProxyInterfaces(connection, ADAPTER_WELLKNOWN_NAME, ADAPTER_INTERFACE_OBJECT_PATH + hciDevice)
+ProxyInterfaces(connection, sdbus::ServiceName(ADAPTER_WELLKNOWN_NAME), sdbus::ObjectPath(ADAPTER_INTERFACE_OBJECT_PATH + hciDevice))
 {
   Log("%s%s HCI - %s, Path - %s", TAG,__func__, LOG_STRING(m_hciDevice), LOG_STRING(ADAPTER_INTERFACE_OBJECT_PATH + hciDevice));
   registerProxy();
@@ -213,9 +213,9 @@ void AdapterProxy::ResetStatus()
   }
 }
 
-void AdapterProxy::onPropertiesChanged(const std::string& interface_name, 
-  const std::map<std::string, sdbus::Variant>& changed_properties, 
-  const std::vector<std::string>& invalidated_properties)
+void AdapterProxy::onPropertiesChanged( const sdbus::InterfaceName& interface_name,
+                                        const  std::map<sdbus::PropertyName, sdbus::Variant>& changed_properties,
+                                        const std::vector<sdbus::PropertyName>& invalidated_properties )
 {
   Log("%s%s Interface Name %s", TAG,LOG_STRING(interface_name));
   for (const auto &prop : changed_properties) {

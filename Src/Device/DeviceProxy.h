@@ -11,7 +11,7 @@
 #include <vector>
 #include <map>
 #include <cstdint>
-#include <cstdbool>
+
 
 #include <sdbus-c++/sdbus-c++.h>
 #include "Device1-proxy-generated.hpp"
@@ -136,9 +136,9 @@ public:
    * @param changed_properties Map of changed properties and their new values
    * @param invalidated_properties List of properties that became invalid
    */
-  void onPropertiesChanged(const std::string& interface_name, 
-    const std::map<std::string, sdbus::Variant>& changed_properties, 
-    const std::vector<std::string>& invalidated_properties) override;
+ void onPropertiesChanged( const sdbus::InterfaceName& interface_name,
+                            const  std::map<sdbus::PropertyName, sdbus::Variant>& changed_properties, 
+                            const std::vector<sdbus::PropertyName>& invalidated_properties ) override;
 
   private:
     sdbus::IConnection &m_connection; ///< Reference to D-Bus connection

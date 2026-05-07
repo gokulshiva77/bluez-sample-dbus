@@ -46,11 +46,13 @@ public:
    * @brief Start device discovery mode
    */
   void StartDiscovery();
+  void StopDiscovery();
   
   /**
    * @brief Start scanning for nearby devices
    */
   void StartScan();
+  void StopScan();
   
   /**
    * @brief Get and select a specific device by MAC address

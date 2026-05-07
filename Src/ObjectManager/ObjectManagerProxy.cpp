@@ -16,7 +16,7 @@ ObjectManagerProxy::ObjectManagerProxy(sdbus::IConnection& connection, IDeviceMa
 m_running(true),
 m_connection(connection),
 m_deviceManager(deviceManager),
-ProxyInterfaces(connection, OBJECT_MANAGER_WELLKNOWN_NAME, OBJECT_MANAGER_INTERFACE_OBJECT_PATH)
+ProxyInterfaces(connection, sdbus::ServiceName(OBJECT_MANAGER_WELLKNOWN_NAME), sdbus::ObjectPath(OBJECT_MANAGER_INTERFACE_OBJECT_PATH))
 {
   Log("%s%s", TAG,__func__);
 }
@@ -42,8 +42,8 @@ void ObjectManagerProxy::StartLooping()
   m_eventLoopThread = std::thread(&ObjectManagerProxy::RunEventLoop, this);
 }
 
-void ObjectManagerProxy::onInterfacesAdded(const sdbus::ObjectPath& objectPath
-    , const std::map<std::string, std::map<std::string, sdbus::Variant>>& interfacesAndProperties)
+void ObjectManagerProxy::onInterfacesAdded( const sdbus::ObjectPath& objectPath,
+      const std::map<sdbus::InterfaceName,  std::map<sdbus::PropertyName, sdbus::Variant>>& interfacesAndProperties)
 {
   Log("%s%s Object Path - %s", TAG, __func__, LOG_STRING(std::string(objectPath)));
   std::lock_guard<std::mutex> lock(m_obj_manager_mutex);
@@ -52,8 +52,7 @@ void ObjectManagerProxy::onInterfacesAdded(const sdbus::ObjectPath& objectPath
   m_queueCV.notify_one();
 }
 
-void ObjectManagerProxy::onInterfacesRemoved(const sdbus::ObjectPath& objectPath
-      , const std::vector<std::string>& interfaces)
+void ObjectManagerProxy::onInterfacesRemoved( const sdbus::ObjectPath& objectPath,const std::vector<sdbus::InterfaceName>& interfaces)
 {
   Log("%s%s Object Path - %s", TAG, __func__, LOG_STRING(objectPath));
   for (const auto& interface : interfaces)
@@ -106,10 +105,10 @@ void ObjectManagerProxy::RunEventLoop()
   }
 }
 
-uint32_t ObjectManagerProxy::GetClass(std::map<std::string, sdbus::Variant> interfaces)
+uint32_t ObjectManagerProxy::GetClass( std::map<sdbus::PropertyName, sdbus::Variant> interfaces)
 {
   uint32_t device_class = BluetoothMajorDeviceClass::Uncategorized;
-  auto it = std::find_if(interfaces.begin(), interfaces.end(), [](const std::pair<std::string, sdbus::Variant>& interface) {
+  auto it = std::find_if(interfaces.begin(), interfaces.end(), [](const std::pair<sdbus::PropertyName, sdbus::Variant>& interface) {
     return interface.first == "Class";
   });
   if(it != interfaces.end()) {
@@ -129,7 +128,7 @@ bool ObjectManagerProxy::ValidateClass(uint32_t device_class)
   return valid;
 }
 
-bool ObjectManagerProxy::GetAndValidateClass(std::map<std::string, sdbus::Variant> interfaces)
+bool ObjectManagerProxy::GetAndValidateClass( std::map<sdbus::PropertyName, sdbus::Variant> interfaces)
 {
   uint32_t device_class = GetClass(interfaces);
   return ValidateClass(device_class);

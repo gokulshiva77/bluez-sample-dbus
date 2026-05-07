@@ -1,20 +1,21 @@
 cmake_minimum_required(VERSION 3.10)
 project(BluezEg VERSION 0.1.0 LANGUAGES C CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(gen_dir                 ${CMAKE_CURRENT_BINARY_DIR}/Generated)
-set(xml_dir                 ${CMAKE_CURRENT_SOURCE_DIR}/xml)
-set(xml_files               Adapter1.xml
-                            Agent1.xml
-                            AgentManager1.xml
-                            Device1.xml
-                            Media1.xml
-                            ProfileManager1.xml
-                            Profile1.xml
-                            )
+set(gen_dir                  ${CMAKE_CURRENT_BINARY_DIR}/Generated)
+set(xml_dir                  ${CMAKE_CURRENT_SOURCE_DIR}/xml)
+set(xml_files
+    Adapter1.xml
+    Agent1.xml
+    AgentManager1.xml
+    Device1.xml
+    Media1.xml
+    ProfileManager1.xml
+    Profile1.xml
+    )
 
 file(MAKE_DIRECTORY ${gen_dir})
 
@@ -85,6 +86,7 @@ target_include_directories(BluezEg PRIVATE Src/Adapter
                                            Int
                                            ${CMAKE_SOURCE_DIR}
                                            ${Boost_INCLUDE_DIRS}
+                                           ${gen_dir}
                                            )
 
 target_link_libraries(BluezEg PRIVATE SDBUSGenLib ${Boost_LIBRARIES} pthread)

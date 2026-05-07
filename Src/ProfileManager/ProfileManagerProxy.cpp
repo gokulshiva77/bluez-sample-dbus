@@ -8,7 +8,7 @@ const std::string PROFILE_MANAGER_WELLKNOWN_NAME = "org.bluez";
 const std::string PROFILE_MANAGER_INTERFACE_OBJECT_PATH = "/org/bluez";
 
 ProfileManagerProxy::ProfileManagerProxy(sdbus::IConnection &connection):
-ProxyInterfaces(connection, PROFILE_MANAGER_WELLKNOWN_NAME, PROFILE_MANAGER_INTERFACE_OBJECT_PATH),
+ProxyInterfaces(connection, sdbus::ServiceName(PROFILE_MANAGER_WELLKNOWN_NAME), sdbus::ObjectPath(PROFILE_MANAGER_INTERFACE_OBJECT_PATH)),
 m_connection(connection)
 {
   Log("%s%s", TAG, __func__);

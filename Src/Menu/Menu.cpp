@@ -28,7 +28,9 @@
 typedef enum
 {
   START_DISCOVERY = 1,
+  STOP_DISCOVERY,
   START_SCAN,
+  STOP_SCAN,
   LIST_DEVICES,
   GET_DEVICE,
   PRINT_PROPERITES,
@@ -46,7 +48,9 @@ typedef enum
 
 std::map<uint8_t, std::string> menu_map = {
     {START_DISCOVERY, "Start Discovery"},
+    {STOP_DISCOVERY, "Stop Discovery"},
     {START_SCAN, "Start Scan"},
+    {STOP_SCAN, "Stop Scan"},
     {LIST_DEVICES, "List Devices"},
     {GET_DEVICE, "Get Device"},
     {PRINT_PROPERITES, "Print Properties"},
@@ -83,7 +87,9 @@ std::map<std::string, std::string> UUIDDescription{
 
 std::map<uint8_t, std::function<void(Menu* callback)>> dispatchMenuCallbacks = {
   {START_DISCOVERY,         [](Menu* callback) { callback->StartDiscovery(); }},
+  {STOP_DISCOVERY,          [](Menu* callback) { callback->StopDiscovery(); }},
   {START_SCAN,              [](Menu* callback) { callback->StartScan(); }},
+  {STOP_SCAN,               [](Menu* callback) { callback->StopScan(); }},
   {LIST_DEVICES,            [](Menu* callback) { callback->ListDevices(); }},
   {GET_DEVICE,              [](Menu* callback) { callback->GetDevice(); }},
   {PRINT_PROPERITES,        [](Menu* callback) { callback->PrintProperties(); }},
@@ -135,12 +141,22 @@ void Menu::StartDiscovery()
   m_application->StartDiscovery();
 }
 
+void Menu::StopDiscovery()
+{
+  m_application->StopDiscovery();
+}
+
 void Menu::StartScan()
 {
   Log("%s%s", TAG,__func__);
   m_application->StartScan();
 }
 
+void Menu::StopScan()
+{
+  Log("%s%s", TAG,__func__);
+  m_application->StopScan();
+}
 void Menu::GetDevice()
 {
   Log("%s%s", TAG,__func__);

@@ -12,6 +12,12 @@
 
 #define TAG "AgentManager::" ///< Tag for logging messages
 
+const std::string KEY_BOARD_DISPLAY_CAPABILITY = "KeyboardDisplay";
+const std::string NO_INPUT_NO_OUTPUT_CAPABILITY = "NoInputNoOutput";
+const std::string DISPLAY_YES_NO_CAPABILITY = "DisplayYesNo";
+const std::string DISPLAY_ONLY_CAPABILITY = "DisplayOnly";
+const std::string KEYBOARD_ONLY_CAPABILITY = "KeyboardOnly";
+
 /**
  * @brief Construct a new Agent Manager object
  * 
@@ -24,10 +30,11 @@
 AgentManager::AgentManager(sdbus::IConnection &connection, std::string path):
 m_running(true),
 m_path(path),
-m_agentManagerProxy(connection)
+m_agentManagerProxy(connection),
+m_capability(KEY_BOARD_DISPLAY_CAPABILITY)
 {
   Log("%s%s Path - %s", TAG,__func__, LOG_STRING(path));
-  m_agentManagerProxy.RegisterAgent(sdbus::ObjectPath(m_path), "KeyboardDisplay");
+  m_agentManagerProxy.RegisterAgent(sdbus::ObjectPath(m_path), m_capability);
   m_agentManagerProxy.RequestDefaultAgent(sdbus::ObjectPath(m_path)); 
 }
 

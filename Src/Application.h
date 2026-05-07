@@ -10,6 +10,7 @@
 #include <chrono>
 #include <thread>
 #include <atomic>
+#include <string>
 
 #include "IDeviceManager.h"
 
@@ -73,6 +74,7 @@ public:
    * it for accepting incoming connections.
    */
   void StartDiscovery();
+  void StopDiscovery();
   
   /**
    * @brief Start scanning for nearby devices
@@ -80,7 +82,7 @@ public:
    * Powers on the adapter and begins active scanning for discoverable devices.
    */
   void StartScan();
-  
+  void StopScan();
 private:
   /**
    * @brief Run the D-Bus event loop asynchronously

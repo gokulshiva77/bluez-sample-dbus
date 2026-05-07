@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 #include <cstdint>
-#include <cstdbool>
+
 #include <map>
 
 // BlueZ Device1 interface property names

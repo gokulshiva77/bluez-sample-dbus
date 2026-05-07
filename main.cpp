@@ -177,9 +177,6 @@ int main(int argc, char **argv)
     catch (const std::exception &e)
     {
         std::cerr << "Error: " << e.what() << std::endl;
-
-        // Print backtrace
-        printBacktrace();
     }
     return 0;
 }
